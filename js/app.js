@@ -1,41 +1,49 @@
 // Browser compatibility
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-const SpeechGrammarList = window.SpeechGrammarList || window.webkitSpeechGrammarList;
 
 if (!SpeechRecognition) {
   alert("Your browser does not support SpeechRecognition. Use Chrome or Edge.");
 }
 
-// Define a simple grammar (optional)
-const grammar = "#JSGF V1.0; grammar colors; public <color> = red | blue | green | yellow | orange | purple | pink ;";
-
+// Create recognition instance
 const recognition = new SpeechRecognition();
-const speechRecognitionList = new SpeechGrammarList();
-speechRecognitionList.addFromString(grammar, 1);
-recognition.grammars = speechRecognitionList;
-recognition.continuous = false;
+recognition.continuous = true;       // Keep listening
 recognition.lang = "en-US";
-recognition.interimResults = false;
+recognition.interimResults = true;   // Show live text
 recognition.maxAlternatives = 1;
 
 // DOM elements
 const startBtn = document.getElementById("start");
 const transcriptArea = document.querySelector("#transcript textarea");
-const outputDiv = document.getElementById("output");
 
 let isRecording = false;
+let finalTranscript = ""; // Permanent transcript
 
-// Handle speech results once
+// Handle speech results
 recognition.onresult = (event) => {
-  const spokenText = event.results[0][0].transcript;
-  outputDiv.textContent = `You said: ${spokenText}`;
-  // Append text to textarea
-  transcriptArea.value += spokenText + "\n";
+  let interimTranscript = "";
+
+  for (let i = event.resultIndex; i < event.results.length; i++) {
+    const transcript = event.results[i][0].transcript;
+    if (event.results[i].isFinal) {
+      finalTranscript += transcript + " ";
+    } else {
+      interimTranscript += transcript;
+    }
+  }
+
+  // Show permanent text + live interim (on separate line)
+  transcriptArea.value = finalTranscript + (interimTranscript ? `\n(${interimTranscript})` : "");
+};
+
+// Restart automatically if recording is active
+recognition.onend = () => {
+  if (isRecording) recognition.start();
 };
 
 // Handle errors
 recognition.onerror = (event) => {
-  outputDiv.textContent = `Error: ${event.error}`;
+  transcriptArea.value += `[Error: ${event.error}]\n`;
   isRecording = false;
   startBtn.textContent = "Start Recording";
   startBtn.style.backgroundColor = "";
@@ -43,20 +51,19 @@ recognition.onerror = (event) => {
 
 // Toggle Start/Stop button
 startBtn.addEventListener("click", () => {
-  isRecording = !isRecording;
-
-  if (isRecording) {
+  if (!isRecording) {
     recognition.start();
+    isRecording = true;
     startBtn.textContent = "Stop Recording";
     startBtn.style.backgroundColor = "red";
-    outputDiv.textContent = "Listening...";
   } else {
     recognition.stop();
+    isRecording = false;
     startBtn.textContent = "Start Recording";
     startBtn.style.backgroundColor = "";
-    outputDiv.textContent = "Stopped.";
   }
 });
+
 
 
 const save = document.getElementById("save");
@@ -71,4 +78,11 @@ save.addEventListener("click", () => {
     } else{
         save.style.backgroundColor = "#ff6b81";
     }
+})
+
+
+const clear = document.getElementById("download");
+
+clear.addEventListener("click", ()=> {
+   transcriptArea.value = "";
 })
