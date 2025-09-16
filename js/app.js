@@ -67,22 +67,23 @@ startBtn.addEventListener("click", () => {
 
 
 const save = document.getElementById("save");
+const savedNote = document.querySelector("#savedNotes textarea");
 let isSaved = false;
 
 save.addEventListener("click", () => {
     isSaved = !isSaved;
     save.textContent = isSaved ?  "Clear Note" : "Save Note";
 
+  
     if(isSaved){
+        savedNote.value = transcriptArea.value;
         save.style.backgroundColor = "green";
     } else{
         save.style.backgroundColor = "#ff6b81";
+        savedNote.value = "";
     }
 })
 
 
 const clear = document.getElementById("download");
 
-clear.addEventListener("click", ()=> {
-   transcriptArea.value = "";
-})
