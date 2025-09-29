@@ -5,30 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Voice Notes</title>
   <link rel="stylesheet" href="/css/styles.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
 </head>
 <body>
-  <div class="container">
-    <h1>Voice Notes</h1>
+  <div class="demo-card">
+  <h3>Interactive demo</h3>
 
-    <div id="transcript">
-      <textarea placeholder="Your notes will appear here..."></textarea>
-    </div>
+  <div class="timer">
+    <small>Limit: 01:00</small>
+    <div class="time">00:00</div>
+  </div>
 
-    <div class="buttons">
-      <div class="button-group">
-        <button id="start">Start Recording</button>
-      </div>
-      <div class="button-group">
-        <button id="save">Save Note</button>
-      </div>
-      <button id="download">Download Note</button>
-    </div>
+  <div class="controls">
+    <button class="circle small"><i data-lucide="play"></i></button>
+    <button class="circle big"><i data-lucide="mic"></i></button>
+    <button class="circle small"><i data-lucide="trash-2"></i></button>
 
-    <div id="savedNotes">
-      <textarea placeholder="Saved notes will appear here..."></textarea>
-    </div>
+  </div>
 
-    <div id="output"></div>
+  <button class="continue-btn">Download</button>
+</div>
+
 
     <script src="/js/app.js"></script>
   </div>

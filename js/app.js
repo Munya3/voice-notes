@@ -1,5 +1,6 @@
 // Browser compatibility
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+lucide.createIcons();
 
 if (!SpeechRecognition) {
   alert("Your browser does not support SpeechRecognition. Use Chrome or Edge.");
