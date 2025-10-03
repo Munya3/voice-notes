@@ -1,35 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Voice Notes</title>
-  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/styles.css"/>
   <script src="https://unpkg.com/lucide@latest"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
-
 </head>
 <body>
   <div class="demo-card">
-  <h3>Interactive demo</h3>
+    <h3>Interactive demo</h3>
 
-  <div class="timer">
-    <small>Limit: 01:00</small>
-    <div class="time">00:00</div>
+    <div class="timer">
+      <small>Limit: 01:00</small>
+      <div class="time">00:00</div>
+    </div>
+
+    <div class="controls">
+      <button id="start" class="circle big"><i data-lucide="mic"></i></button>
+      <button id="delete" class="circle small"><i data-lucide="trash-2"></i></button>
+    </div>
+
+    <div id="transcript">
+      <textarea rows="6" cols="40" placeholder="Your transcript will appear here..."></textarea>
+    </div>
   </div>
 
-  <div class="controls">
-    <button class="circle small"><i data-lucide="play"></i></button>
-    <button class="circle big"><i data-lucide="mic"></i></button>
-    <button class="circle small"><i data-lucide="trash-2"></i></button>
-
-  </div>
-
-  <button class="continue-btn">Download</button>
-</div>
-
-
-    <script src="/js/app.js"></script>
-  </div>
+  <script src="/js/app.js"></script>
 </body>
 </html>
