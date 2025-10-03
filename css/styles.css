@@ -1,50 +1,53 @@
+/* Reset & basic setup */
 body {
   font-family: 'Inter', sans-serif;
-  background: #fafafa;
+  background: linear-gradient(135deg, #f9f9f9, #e9ecef);
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  margin: 0;
 }
 
-.demo-card {
+.voice-note-demo {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+}
+
+.card {
   background: #fff;
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.08);
   padding: 30px 40px;
-  width: 360px;
   text-align: center;
+  animation: fadeInUp 0.6s ease-out;
 }
 
-.demo-card h3 {
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-  font-weight: 600;
-  color: #333;
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.timer small {
-  display: block;
-  color: #888;
-  margin-bottom: 8px;
-}
-
-.time {
-  font-size: 2rem;
+.timer .time {
+  font-size: 2.2rem;
   font-weight: 700;
   margin-bottom: 25px;
-  color: #111;
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
 }
+
+.time.recording { color: #e63946; }
 
 .controls {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 25px; /* a bit more space so buttons don't feel cramped */
   margin-bottom: 25px;
 }
 
-.circle {
+.btn {
   border: none;
   border-radius: 50%;
   display: flex;
@@ -54,15 +57,7 @@ body {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.circle.small {
-  width: 50px;
-  height: 50px;
-  background: #f1f1f1;
-  color: #333;
-  font-size: 1.2rem;
-}
-
-.circle.big {
+.btn-primary { /* Record button */
   width: 70px;
   height: 70px;
   background: linear-gradient(135deg, #ff6b81, #ff2e63);
@@ -71,21 +66,80 @@ body {
   box-shadow: 0 6px 12px rgba(255, 107, 129, 0.4);
 }
 
-.circle:hover {
+.btn-secondary { /* Delete button */
+  width: 50px;
+  height: 50px;
+  background: #f1f1f1;
+  color: #333;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08); /* subtle shadow for balance */
+}
+
+.btn:hover {
   transform: scale(1.05);
 }
 
-.continue-btn {
-  background: #6c5ce7;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.3s ease;
+.textarea-wrapper {
+  position: relative;
+  width: 100%;
 }
 
-.continue-btn:hover {
-  background: #5842c3;
+.textarea-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.copy-btn {
+  position: absolute;
+  top: -17px;       /* moves above the textarea */
+  right: -19px;     /* moves outside the right edge */
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  background-color: #6c5ce7;
+  color: white;
+  font-weight: 600;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  z-index: 2;       /* ensures it sits above textarea */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15); /* optional, looks lifted */
+}
+
+.copy-btn:hover {
+  background-color: #5842c3;
+}
+
+textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  resize: none;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  background: #f7f7f7;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.03);
+  transition: border 0.2s ease;
+}
+
+
+.transcript {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.transcript textarea {
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  resize: none;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  background: #f7f7f7;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.03);
+  transition: border 0.2s ease;
 }
